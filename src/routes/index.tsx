@@ -437,13 +437,22 @@ function Home() {
       {/* ── Instagram ──────────────────────────────────────── */}
       <Section bg="default" className="pt-0">
         <SectionTitle eyebrow="Follow our journey" title="@etatofoods" />
-        <div className="w-full overflow-hidden rounded-[15px] border-2 border-[#d0ddd4] h-[400px] sm:h-[380px]">
-          <iframe
-            src="https://widget.tagembed.com/323696?website=1"
-            allow="fullscreen"
-            style={{ width: '100%', height: '100%', overflow: 'hidden', border: 'none' }}
-            title="Etato Foods Instagram Feed"
-            scrolling="no"
+        <div 
+          className="w-full overflow-hidden rounded-[15px] border-2 border-[#d0ddd4] h-[650px] sm:h-[700px] relative bg-white"
+          style={{ WebkitOverflowScrolling: 'touch' }}
+        >
+          <iframe 
+            src="https://widget.taggbox.com/330310?website=1" 
+            allow="fullscreen; autoplay" 
+            style={{ 
+              position: 'absolute',
+              top: '-45px',
+              left: 0,
+              width: 'calc(100% + 24px)', 
+              height: 'calc(100% + 95px)', 
+              border: 'none',
+              overflow: 'hidden'
+            }}
           ></iframe>
         </div>
         <div className="mt-8 text-center">
