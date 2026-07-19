@@ -23,7 +23,7 @@ function AdminCategoriesPage() {
   
   // Form state
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [formData, setFormData] = useState({ name: "", sortOrder: 0, isActive: true });
+  const [formData, setFormData] = useState({ name: "", sortOrder: 0, isActive: true, putInLast: false });
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -43,28 +43,40 @@ function AdminCategoriesPage() {
 
   const handleEdit = (cat: Category) => {
     setEditingId(cat.id);
-    setFormData({ name: cat.name, sortOrder: cat.sortOrder, isActive: cat.isActive });
+    setFormData({ name: cat.name, sortOrder: cat.sortOrder, isActive: cat.isActive, putInLast: false });
   };
 
   const handleCancelEdit = () => {
     setEditingId(null);
-    setFormData({ name: "", sortOrder: 0, isActive: true });
+    setFormData({ name: "", sortOrder: 0, isActive: true, putInLast: false });
   };
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
     try {
+      let finalSortOrder = formData.sortOrder;
+      if (formData.putInLast) {
+         const maxOrder = categories.length > 0 ? Math.max(...categories.map(c => c.sortOrder)) : -1;
+         finalSortOrder = maxOrder + 1;
+      }
+      
+      const payload = {
+         name: formData.name,
+         isActive: formData.isActive,
+         sortOrder: finalSortOrder
+      };
+
       if (editingId && editingId !== "new") {
         await api(`/admin/categories/${editingId}`, {
           method: "PUT",
-          body: JSON.stringify(formData),
+          body: JSON.stringify(payload),
         });
         toast.success("Category updated successfully");
       } else {
         await api("/admin/categories", {
           method: "POST",
-          body: JSON.stringify(formData),
+          body: JSON.stringify(payload),
         });
         toast.success("Category created successfully");
       }
@@ -152,13 +164,26 @@ function AdminCategoriesPage() {
             </div>
             
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Sort Order</label>
+              <div className="flex justify-between items-center">
+                <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Sort Order</label>
+                <label className="flex items-center gap-1.5 cursor-pointer text-[11px] font-semibold text-muted-foreground hover:text-primary">
+                  <input
+                    type="checkbox"
+                    checked={formData.putInLast}
+                    onChange={(e) => setFormData({ ...formData, putInLast: e.target.checked })}
+                    className="rounded border-border text-primary focus:ring-primary w-3 h-3"
+                  />
+                  Put it in last
+                </label>
+              </div>
               <input
                 type="number"
                 required
-                value={formData.sortOrder}
+                disabled={formData.putInLast}
+                value={formData.putInLast ? "" : formData.sortOrder}
                 onChange={(e) => setFormData({ ...formData, sortOrder: parseInt(e.target.value) || 0 })}
-                className="w-full px-3 py-2 bg-background border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                className="w-full px-3 py-2 bg-background border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring disabled:opacity-50 disabled:bg-muted"
+                placeholder={formData.putInLast ? "Auto (Max + 1)" : ""}
               />
             </div>
           </div>

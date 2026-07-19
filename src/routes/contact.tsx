@@ -25,8 +25,14 @@ const FAQ = [
   ["Subscription Processing", "Once you book a subscription with us, we get straight to work. Your meal plan is processed quickly, and your daily deliveries will start from the very next day after your booking."],
   ["Refund Policy", "We want you to be completely satisfied. Refunds are allowed if a booking was made by mistake, or if your address falls outside our delivery radius.\n\nProcessing time typically takes 5 to 7 working days to reflect in your account."],
   ["Gym Supply", "We love supporting fitness communities! If you run a gym or fitness center, we offer bulk healthy meal supplies tailored for your members. Get in touch for our special bulk rates."],
-  ["Pause/Cancel Timing", "Plans change, and we get that! To avoid food wastage, please follow these cut-offs:\n\n• Lunch cancellation → notify us before 7:00 AM\n• Dinner cancellation → notify us before 12:00 PM"],
-  ["Subscription Pause While Traveling", "Heading out of town? No problem! You can easily pause your subscription while you are traveling. Any missed meals during your pause period will be safely adjusted and added to the end of your subscription cycle."],
+[
+  "Pause/Cancel Timing",
+  "Plans change, and we get that! To avoid food wastage, please inform us at least one day in advance.\n\n• Lunch cancellation → notify us before 7:00 AM\n• Dinner cancellation → notify us before 12:00 PM"
+],
+  [
+  "Subscription Pause While Traveling",
+  "Heading out of town? No problem! You can pause your subscription while you're traveling. Monthly subscribers can skip up to 3 meals. The skipped meals will be carried forward, and your subscription will continue on the 1st, 2nd, and 3rd of the next month so you don't miss out on your meals."
+],
   ["Subscription Uniqueness", "What makes ETATO special? We deliver homemade, chef-curated meals that are as nutritious as they are delicious. Our carefully rotating menu ensures you never get bored while effortlessly hitting your health goals!"],
 ];
 const FEATURES_MARQUEE_ITEMS = [

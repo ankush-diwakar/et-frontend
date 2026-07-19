@@ -57,9 +57,27 @@ export const Route = createFileRoute("/subscribe")({
   component: SubscribePage,
 });
 
+import { Briefcase, Crown, Flame, Sprout } from "lucide-react";
+
 const PLAN_CONTENT: Record<string, any> = {
+  trial: {
+    icon: Sprout,
+    bowlsCount: "3 High-Protein Bowls",
+    includes: [
+      "Daily rotating bowl menu",
+      "Perfect to test our taste & quality",
+      "No skipping meals"
+    ],
+    best: "First-time users who want to try out our salads.",
+    cta: "Choose Trial Plan",
+    theme: "bg-white text-[#0A472E] border border-[#d0ddd4] hover:border-[#0A472E] hover:shadow-xl transition-all duration-300",
+    badge: "New User",
+    titleColor: "text-[#0A472E]",
+    iconColor: "text-[#0A472E]",
+    dividerColor: "border-[#0A472E]/10",
+  },
   weekly: {
-    emoji: "🔥",
+    icon: Flame,
     bowlsCount: "6 High-Protein Bowls",
     includes: [
       "Daily rotating bowl menu",
@@ -68,14 +86,14 @@ const PLAN_CONTENT: Record<string, any> = {
     ],
     best: "Working professionals, gym-goers and healthy eating beginners.",
     cta: "Choose Weekly Plan",
-    theme: "bg-[#0A472E] text-white border-2 border-[#C9D909] hover:-translate-y-1 transition-all duration-300 shadow-[4px_6px_0px_0px_#C9D909]",
+    theme: "bg-[#0A472E] text-white border border-[#C9D909] hover:shadow-xl transition-all duration-300",
     badge: "Popular",
     titleColor: "text-white",
     iconColor: "text-[#C9D909]",
     dividerColor: "border-white/10",
   },
   monthly: {
-    emoji: "👑",
+    icon: Crown,
     bowlsCount: "26 High-Protein Bowls",
     bonus: "🎁 First Month Bonus: Get 27 bowls for the price of 26 (1 FREE ETATO Protein Bowl worth ₹249)",
     includes: [
@@ -86,8 +104,26 @@ const PLAN_CONTENT: Record<string, any> = {
     ],
     best: "Fitness-focused customers and long-term healthy eating.",
     cta: "Choose Monthly Plan",
-    theme: "bg-white text-[#0A472E] border-2 border-[#d0ddd4] hover:-translate-y-1 hover:border-[#C9D909] hover:shadow-[4px_6px_0px_0px_#C9D909] transition-all duration-300 shadow-sm",
+    theme: "bg-white text-[#0A472E] border border-[#d0ddd4] hover:border-[#C9D909] hover:shadow-xl transition-all duration-300",
     badge: "Premium Membership",
+    titleColor: "text-[#0A472E]",
+    iconColor: "text-[#0A472E]",
+    dividerColor: "border-[#0A472E]/10",
+  },
+  office: {
+    icon: Briefcase,
+    bowlsCount: "20 High-Protein Bowls",
+    bonus: "💼 Mon to Fri – 20 high protein salads at 4499 Rs (Save 500rs)",
+    includes: [
+      "Daily rotating bowl menu",
+      "Monday–Friday (20 Bowls)",
+      "Skip up to 2 meals/month",
+      "Redeem meals next month (1st/2nd)"
+    ],
+    best: "Fuel Your Work Week",
+    cta: "Choose Office Plan",
+    theme: "bg-white text-[#0A472E] border border-[#d0ddd4] hover:border-[#C9D909] hover:shadow-xl transition-all duration-300",
+    badge: "Office Special",
     titleColor: "text-[#0A472E]",
     iconColor: "text-[#0A472E]",
     dividerColor: "border-[#0A472E]/10",
@@ -260,6 +296,7 @@ function SubscribePage() {
           id: dp.id,
           t: dp.name,
           d: `${dp.durationDays} days`,
+          b: dp.bowlsCount,
           o: dp.originalPrice,
           p: dp.price,
           save: `₹${dp.originalPrice - dp.price}`,
@@ -285,7 +322,7 @@ function SubscribePage() {
           );
           setActiveSub(active ?? null);
         })
-        .catch(() => {})
+        .catch(() => { })
         .finally(() => setLoadingSub(false));
     }
   }, [isAuthenticated]);
@@ -301,7 +338,7 @@ function SubscribePage() {
             Eat clean. <span className="font-script text-[#C9D909]">Save more.</span>
           </h1>
           <p className="mt-5 max-w-xl mx-auto text-white/70 font-light">
-            Lock in your healthy week. Save up to 20% per bowl. Switch your bowl any time on
+            Lock in your healthy week. Save up to 10% per bowl. Switch your bowl any time on
             WhatsApp.
           </p>
         </div>
@@ -311,15 +348,15 @@ function SubscribePage() {
         <SectionTitle eyebrow="How it works" title="Simple, flexible, fresh" />
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {STEPS.map((s, idx) => (
-            <motion.div 
-              key={s.n} 
+            <motion.div
+              key={s.n}
               className="h-full"
               initial={{ opacity: 0, y: 40, scale: 0.95 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.8, ease: "easeOut", delay: idx * 0.1 }}
             >
-              <div 
+              <div
                 className={`w-full h-full bg-[#0A472E] border-[3px] border-[#C9D909] rounded-[15px] p-5 sm:p-6 
                            flex flex-col shadow-[6px_6px_0_0_#C9D909]
                            ${idx % 2 === 0 ? 'rotate-2' : '-rotate-2'} hover:-translate-y-3 hover:rotate-0 transition-all duration-[400ms] ease-out cursor-default relative group`}
@@ -331,7 +368,7 @@ function SubscribePage() {
                   {s.d}
                 </p>
                 {/* Spiky numbered sticker matching the design */}
-                <div 
+                <div
                   className="absolute -bottom-4 -left-4 w-12 h-12 bg-[#C9D909] text-[#0A472E] flex items-center justify-center font-black text-xl shadow-[2px_2px_10px_rgba(0,0,0,0.2)] transform -rotate-12 group-hover:rotate-0 transition-transform z-10"
                   style={{
                     clipPath: "polygon(50% 0%, 61% 12%, 75% 5%, 80% 20%, 95% 20%, 93% 36%, 100% 50%, 93% 64%, 95% 80%, 80% 80%, 75% 95%, 61% 88%, 50% 100%, 39% 88%, 25% 95%, 20% 80%, 5% 80%, 7% 64%, 0% 50%, 7% 36%, 5% 20%, 20% 20%, 25% 5%, 39% 12%)"
@@ -362,30 +399,55 @@ function SubscribePage() {
 
       <Section bg="default">
         <SectionTitle eyebrow="Pricing" title="Pick your plan" />
-        <div className="grid sm:grid-cols-2 gap-5 max-w-4xl mx-auto">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
           {plans.map((p, idx) => {
-            const content = PLAN_CONTENT[p.id];
-            if (!content) return null;
+            let matchedKey = p.id;
+            if (!PLAN_CONTENT[matchedKey]) {
+                const nameLower = p.t.toLowerCase();
+                if (nameLower.includes("office")) matchedKey = "office";
+                else if (nameLower.includes("monthly")) matchedKey = "monthly";
+                else if (nameLower.includes("weekly")) matchedKey = "weekly";
+                else if (nameLower.includes("trial")) matchedKey = "trial";
+            }
+
+            const fallbackContent = {
+              icon: Salad,
+              bowlsCount: p.b ? `${p.b} High-Protein Bowls` : p.d,
+              includes: [
+                "Daily rotating bowl menu",
+                "Healthy & fresh ingredients",
+              ],
+              best: "Anyone looking for a healthy lifestyle.",
+              cta: `Choose ${p.t}`,
+              theme: "bg-white text-[#0A472E] border border-border hover:border-[#0A472E] hover:shadow-xl transition-all duration-300",
+              badge: null,
+              titleColor: "text-[#0A472E]",
+              iconColor: "text-[#0A472E]",
+              dividerColor: "border-border",
+            };
+            const content = PLAN_CONTENT[matchedKey] || fallbackContent;
+            const PlanIcon = content.icon;
+            
             return (
               <motion.div
                 key={p.id}
-                className={`relative rounded-[15px] p-5 sm:p-6 flex flex-col h-full ${content.theme}`}
+                className={`relative rounded-[2px] p-6 flex flex-col h-full ${content.theme}`}
                 initial={{ opacity: 0, y: 40, scale: 0.95 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: false, amount: 0.2 }}
                 transition={{ duration: 0.8, ease: "easeOut", delay: idx * 0.15 }}
               >
                 {content.badge && (
-                  <span className="chip absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] bg-[#C9D909] text-[#0A472E] px-3 py-0.5 font-bold rounded-full border border-[#0A472E]">
+                  <span className="chip absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] bg-[#C9D909] text-[#0A472E] px-4 py-1 font-bold rounded-none border border-[#0A472E] uppercase tracking-widest">
                     {content.badge}
                   </span>
                 )}
-                
-                <div className="mb-3">
-                  <span className="text-2xl mr-2 inline-block align-middle">{content.emoji}</span>
-                  <h3 className={`font-display text-xl inline-block align-middle ${content.titleColor}`}>{p.t}</h3>
-                  <p className="opacity-80 text-xs mt-1">{content.bowlsCount}</p>
+
+                <div className="mb-3 flex items-center gap-2">
+                  <PlanIcon className={`w-7 h-7 ${content.iconColor}`} />
+                  <h3 className={`font-display text-xl ${content.titleColor}`}>{p.t}</h3>
                 </div>
+                <p className="opacity-80 text-xs mb-3">{content.bowlsCount}</p>
 
                 <div className={`mb-4 pb-4 border-b ${content.dividerColor}`}>
                   <div className="flex items-end gap-2">
@@ -427,7 +489,7 @@ function SubscribePage() {
         </div>
       </Section>
 
-  {/* ── USP strip ──────────────────────────────────────── */}
+      {/* ── USP strip ──────────────────────────────────────── */}
       <section className="bg-[#0A472E] border-y-2 border-[#C9D909]">
         <div className="container mx-auto px-4 py-5 overflow-x-auto no-scrollbar">
           <ul className="flex gap-8 sm:justify-around items-center min-w-max sm:min-w-0 text-white">
@@ -497,11 +559,10 @@ function SubscribePage() {
                       </p>
                     </div>
                   </div>
-                  <span className={`chip text-[10px] ${
-                    activeSub.status === "ACTIVE"
+                  <span className={`chip text-[10px] ${activeSub.status === "ACTIVE"
                       ? "bg-[#C9D909] text-[#0A472E]"
                       : "bg-amber-100 text-amber-700"
-                  }`}>
+                    }`}>
                     {activeSub.status}
                   </span>
                 </div>
@@ -719,7 +780,7 @@ function SubscribePage() {
 
       <section className="py-6 sm:py-12 relative overflow-hidden">
         {/* Background Image - Tiled to prevent resizing when accordion opens */}
-        <div 
+        <div
           className="absolute inset-0 z-0 opacity-100"
           style={{
             backgroundImage: `url(${faqbg})`,
@@ -732,7 +793,7 @@ function SubscribePage() {
         <div className="container mx-auto px-2 sm:px-4 lg:max-w-[1450px] relative z-10">
           <div className="bg-[#FFFDF6] rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-12 lg:p-16 shadow-2xl">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
-              
+
               {/* Left Side: Title & Stamp */}
               <div className="lg:col-span-5 flex flex-col items-start">
                 <h2 className="font-body text-[#0A472E] font-black uppercase text-4xl sm:text-5xl lg:text-[4rem] leading-[0.9] tracking-tighter">
@@ -742,10 +803,10 @@ function SubscribePage() {
                   Questions
                 </h2>
                 <div className="w-full flex justify-center mt-12 lg:mt-16">
-                  <img 
-                    src={stamp} 
-                    alt="Healthy Habits Stamp" 
-                    className="w-56 sm:w-72 lg:w-[350px] opacity-100 -rotate-6 drop-shadow-md" 
+                  <img
+                    src={stamp}
+                    alt="Healthy Habits Stamp"
+                    className="w-56 sm:w-72 lg:w-[350px] opacity-100 -rotate-6 drop-shadow-md"
                   />
                 </div>
               </div>
@@ -764,7 +825,7 @@ function SubscribePage() {
                     ],
                     [
                       "Is Sunday delivery available?",
-                      "No — Etato is off on Sundays. Our week runs Monday to Saturday.",
+                      "Subscriptions are completely off on Sundays, so no subscription meals are delivered. However, we are open on Sundays, although our operating hours may differ. Please call us at 7499934425 for Sunday timings and availability."
                     ],
                     [
                       "Can I get a Jain version?",
@@ -791,7 +852,7 @@ function SubscribePage() {
                   ))}
                 </div>
               </div>
-              
+
             </div>
           </div>
         </div>

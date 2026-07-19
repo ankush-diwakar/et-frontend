@@ -216,7 +216,7 @@ function Home() {
 
 
       {/* ── Launch offer ───────────────────────────────────── */}
-      <section className="bg-[#f0f5d0] border-y-2 border-[#C9D909]/40">
+      {/* <section className="bg-[#f0f5d0] border-y-2 border-[#C9D909]/40">
         <div className="container mx-auto px-4 py-7 text-center">
           <p className="text-sm sm:text-base font-medium text-[#0A472E]">
             🎉 <span className="font-bold">Special Launch Offer</span> — 10% OFF for our first 50 customers!
@@ -227,7 +227,7 @@ function Home() {
             at checkout.
           </p>
         </div>
-      </section>
+      </section> */}
 
       {/* ── Featured Bowls ─────────────────────────────────── */}
       <Section bg="default">
